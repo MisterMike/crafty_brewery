@@ -1,0 +1,50 @@
+{#
+ # News index template
+ # -------------------
+ #
+ # This template is loaded whenever http://example.com/news is
+ # requested, because it is located at news/index.html in your
+ # craft/templates/ folder.
+ #
+ # See this page for more details on how Craft routes requests:
+ # http://craftcms.com/docs/routing
+ #}
+
+{% extends "_layout" %}
+{% set title = "News" %}
+
+{% block main %}
+    <ul class="breadcrumbs">
+        <li><a href="/">Home</a></li>
+        <li>Brews</li>
+    </ul>
+    <div class="full-bleed-header" style="background-size: 100%; height: 200px; background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('images/brews/beer-on-table.jpg'); background-repeat: no-repeat, repeat; background-position:0 700px">
+        <div class="page-title text-center">
+            <h2 class="logo"><span class="scripty">Unsere Brews</h2>
+            <p class="tagline reverse">&nbsp;</p>
+        </div>
+    </div>
+
+        
+        <div class="row page-content">
+            <div class="large-12 small-12 columns">
+                <p>The most recent brews we've made.</p>
+                <table width="100%">
+                    <tr>
+                        <th>Beer Name</th>
+                        <th>Original Brew Date</th>
+                        <th>Style</th>
+                    </tr>
+                    {% for brew in craft.entries.section('brews').orderBy('brewDate').limit(5) %}
+                    <tr>
+                        <td><a href="{{ brew.url }}">{{ brew.title }}</a></td>
+                        <td>{{ brew.brewDate.format('d.m.Y')}}</td>
+                        <td>{{ brew.tagline }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        
+	
+{% endblock %}
